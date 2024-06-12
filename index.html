@@ -1,8 +1,49 @@
-<script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Widget Movible</title>
+  <style>
+    #live-chat-widget {
+      position: absolute;
+      cursor: move;
+    }
+  </style>
+</head>
+<body>
+  <div id="live-chat-widget"></div>
+  <script>
     var MessageBirdChatWidgetSettings = { 
       widgetId: 'f78c45c2-2b48-4d60-a11d-5c96f10799e7', 
       initializeOnLoad: true, 
     };
   
     !function(){"use strict";if(Boolean(document.getElementById("live-chat-widget-script")))console.error("MessageBirdChatWidget: Snippet loaded twice on page");else{var e,t;window.MessageBirdChatWidget={},window.MessageBirdChatWidget.queue=[];for(var i=["init","setConfig","toggleChat","identify","hide","on","shutdown"],n=function(){var e=i[d];window.MessageBirdChatWidget[e]=function(){for(var t=arguments.length,i=new Array(t),n=0;n<t;n++)i[n]=arguments[n];window.MessageBirdChatWidget.queue.push([[e,i]])}},d=0;d<i.length;d++)n();var a=(null===(e=window)||void 0===e||null===(t=e.MessageBirdChatWidgetSettings)||void 0===t?void 0:t.widgetId)||"",o=function(){var e,t=document.createElement("script");t.type="text/javascript",t.src="https://livechat.messagebird.com/bootstrap.js?widgetId=".concat(a),t.async=!0,t.id="live-chat-widget-script";var i=document.getElementsByTagName("script")[0];null==i||null===(e=i.parentNode)||void 0===e||e.insertBefore(t,i)};"complete"===document.readyState?o():window.attachEvent?window.attachEvent("onload",o):window.addEventListener("load",o,!1)}}();
+
+    // Script para hacer el widget movible
+    window.addEventListener('load', function() {
+      var widget = document.getElementById('live-chat-widget');
+      var isMouseDown = false;
+      var offset = { x: 0, y: 0 };
+
+      widget.addEventListener('mousedown', function(e) {
+        isMouseDown = true;
+        offset.x = widget.offsetLeft - e.clientX;
+        offset.y = widget.offsetTop - e.clientY;
+      });
+
+      document.addEventListener('mouseup', function() {
+        isMouseDown = false;
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (isMouseDown) {
+          widget.style.left = e.clientX + offset.x + 'px';
+          widget.style.top = e.clientY + offset.y + 'px';
+        }
+      });
+    });
   </script>
+</body>
+</html>
